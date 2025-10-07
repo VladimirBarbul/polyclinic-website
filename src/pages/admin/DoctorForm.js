@@ -98,14 +98,20 @@ const DoctorForm = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-8">
+        {/* Основна інформація */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Основна інформація</h2>
+          <h2 className="text-lg font-medium text-gray-900 mb-6 flex items-center">
+            <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            Основна інформація
+          </h2>
           
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                ПІБ лікаря
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                ПІБ лікаря <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -113,14 +119,16 @@ const DoctorForm = () => {
                 id="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Наприклад: Ківенко Лариса Миколаївна"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
                 required
               />
+              <p className="mt-1 text-xs text-gray-500">Введіть повне ім'я лікаря</p>
             </div>
 
             <div>
-              <label htmlFor="specialization" className="block text-sm font-medium text-gray-700">
-                Спеціалізація
+              <label htmlFor="specialization" className="block text-sm font-medium text-gray-700 mb-2">
+                Спеціалізація <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -128,13 +136,15 @@ const DoctorForm = () => {
                 id="specialization"
                 value={formData.specialization}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Наприклад: Терапевт, Кардіолог, Педіатр"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
                 required
               />
+              <p className="mt-1 text-xs text-gray-500">Основна спеціалізація лікаря</p>
             </div>
 
             <div>
-              <label htmlFor="experience" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="experience" className="block text-sm font-medium text-gray-700 mb-2">
                 Досвід роботи
               </label>
               <input
@@ -143,13 +153,14 @@ const DoctorForm = () => {
                 id="experience"
                 value={formData.experience}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="наприклад: 10 років"
+                placeholder="Наприклад: 10 років, 15+ років"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
               />
+              <p className="mt-1 text-xs text-gray-500">Скільки років працює лікар</p>
             </div>
 
             <div>
-              <label htmlFor="education" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="education" className="block text-sm font-medium text-gray-700 mb-2">
                 Освіта
               </label>
               <input
@@ -158,13 +169,15 @@ const DoctorForm = () => {
                 id="education"
                 value={formData.education}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Наприклад: Одеський медичний університет"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
               />
+              <p className="mt-1 text-xs text-gray-500">Вища медична освіта</p>
             </div>
           </div>
 
           <div className="mt-6">
-            <label htmlFor="bio" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-2">
               Про лікаря
             </label>
             <textarea
@@ -173,13 +186,14 @@ const DoctorForm = () => {
               rows={4}
               value={formData.bio}
               onChange={handleChange}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              placeholder="Детальна інформація про лікаря..."
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+              placeholder="Детальна інформація про лікаря, його кваліфікацію, досягнення..."
             />
+            <p className="mt-1 text-xs text-gray-500">Опишіть професійний досвід та досягнення лікаря</p>
           </div>
 
           <div className="mt-6">
-            <label htmlFor="schedule" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="schedule" className="block text-sm font-medium text-gray-700 mb-2">
               Графік роботи
             </label>
             <input
@@ -188,9 +202,10 @@ const DoctorForm = () => {
               id="schedule"
               value={formData.schedule}
               onChange={handleChange}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              placeholder="наприклад: Пн-Пт: 9:00-18:00"
+              placeholder="Наприклад: Пн-Пт: 9:00-18:00, Сб: 9:00-14:00"
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
             />
+            <p className="mt-1 text-xs text-gray-500">Коли лікар приймає пацієнтів</p>
           </div>
 
           <div className="mt-6">

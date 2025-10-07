@@ -100,14 +100,20 @@ const ServiceForm = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-8">
+        {/* Основна інформація */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Основна інформація</h2>
+          <h2 className="text-lg font-medium text-gray-900 mb-6 flex items-center">
+            <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Основна інформація
+          </h2>
           
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Назва послуги
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                Назва послуги <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -115,28 +121,38 @@ const ServiceForm = () => {
                 id="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Наприклад: Консультація терапевта"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
                 required
               />
+              <p className="mt-1 text-xs text-gray-500">Коротка назва послуги</p>
             </div>
 
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-                Категорія
+              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+                Категорія <span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
+              <select
                 name="category"
                 id="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
                 required
-              />
+              >
+                <option value="">Оберіть категорію</option>
+                <option value="Консультації">Консультації</option>
+                <option value="Діагностика">Діагностика</option>
+                <option value="Лікування">Лікування</option>
+                <option value="Реабілітація">Реабілітація</option>
+                <option value="Профілактика">Профілактика</option>
+                <option value="Лабораторні дослідження">Лабораторні дослідження</option>
+              </select>
+              <p className="mt-1 text-xs text-gray-500">До якої категорії належить послуга</p>
             </div>
 
             <div>
-              <label htmlFor="cost" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="cost" className="block text-sm font-medium text-gray-700 mb-2">
                 Вартість
               </label>
               <input
@@ -145,13 +161,14 @@ const ServiceForm = () => {
                 id="cost"
                 value={formData.cost}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="наприклад: від 500 грн"
+                placeholder="Наприклад: від 500 грн, 1000-1500 грн"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
               />
+              <p className="mt-1 text-xs text-gray-500">Вартість послуги (можна вказати діапазон)</p>
             </div>
 
             <div>
-              <label htmlFor="duration" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-2">
                 Тривалість
               </label>
               <input
@@ -160,15 +177,16 @@ const ServiceForm = () => {
                 id="duration"
                 value={formData.duration}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="наприклад: 30-60 хвилин"
+                placeholder="Наприклад: 30-60 хвилин, 1 година"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
               />
+              <p className="mt-1 text-xs text-gray-500">Скільки часу займає послуга</p>
             </div>
           </div>
 
           <div className="mt-6">
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-              Опис послуги
+            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+              Опис послуги <span className="text-red-500">*</span>
             </label>
             <textarea
               name="description"
@@ -176,10 +194,11 @@ const ServiceForm = () => {
               rows={4}
               value={formData.description}
               onChange={handleChange}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              placeholder="Детальний опис послуги..."
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+              placeholder="Детальний опис послуги, що входить у неї, для кого призначена..."
               required
             />
+            <p className="mt-1 text-xs text-gray-500">Опишіть, що включає послуга та для кого вона призначена</p>
           </div>
 
           <div className="mt-6">
