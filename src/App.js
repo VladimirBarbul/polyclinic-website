@@ -41,12 +41,14 @@ function App() {
     initializeData();
   }, []);
 
-  // Use HashRouter for Render.com, BrowserRouter for others
+  // Use HashRouter for both Render.com and Vercel (temporary fix)
   const isRender = window.location.hostname.includes('onrender.com');
-  const RouterComponent = isRender ? HashRouter : Router;
+  const isVercel = window.location.hostname.includes('vercel.app');
+  const RouterComponent = (isRender || isVercel) ? HashRouter : Router;
   
   console.log('App: hostname =', window.location.hostname);
   console.log('App: isRender =', isRender);
+  console.log('App: isVercel =', isVercel);
   console.log('App: RouterComponent =', RouterComponent.name);
   console.log('App: current path =', window.location.pathname);
 
