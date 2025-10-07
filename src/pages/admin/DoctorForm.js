@@ -120,7 +120,7 @@ const DoctorForm = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Наприклад: Ківенко Лариса Миколаївна"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2 bg-blue-50"
                 required
               />
               <p className="mt-1 text-xs text-gray-500">Введіть повне ім'я лікаря</p>
@@ -137,7 +137,7 @@ const DoctorForm = () => {
                 value={formData.specialization}
                 onChange={handleChange}
                 placeholder="Наприклад: Терапевт, Кардіолог, Педіатр"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2 bg-blue-50"
                 required
               />
               <p className="mt-1 text-xs text-gray-500">Основна спеціалізація лікаря</p>
@@ -154,7 +154,7 @@ const DoctorForm = () => {
                 value={formData.experience}
                 onChange={handleChange}
                 placeholder="Наприклад: 10 років, 15+ років"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2 bg-blue-50"
               />
               <p className="mt-1 text-xs text-gray-500">Скільки років працює лікар</p>
             </div>
@@ -170,7 +170,7 @@ const DoctorForm = () => {
                 value={formData.education}
                 onChange={handleChange}
                 placeholder="Наприклад: Одеський медичний університет"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2 bg-blue-50"
               />
               <p className="mt-1 text-xs text-gray-500">Вища медична освіта</p>
             </div>
@@ -186,7 +186,7 @@ const DoctorForm = () => {
               rows={4}
               value={formData.bio}
               onChange={handleChange}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2 bg-blue-50"
               placeholder="Детальна інформація про лікаря, його кваліфікацію, досягнення..."
             />
             <p className="mt-1 text-xs text-gray-500">Опишіть професійний досвід та досягнення лікаря</p>
@@ -203,7 +203,7 @@ const DoctorForm = () => {
               value={formData.schedule}
               onChange={handleChange}
               placeholder="Наприклад: Пн-Пт: 9:00-18:00, Сб: 9:00-14:00"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2 bg-blue-50"
             />
             <p className="mt-1 text-xs text-gray-500">Коли лікар приймає пацієнтів</p>
           </div>

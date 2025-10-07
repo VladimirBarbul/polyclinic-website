@@ -29,10 +29,19 @@ const DoctorPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             <div className="md:col-span-1">
               <img
-                src={doctor.image}
+                src={doctor.image || doctor.photo}
                 alt={doctor.name}
                 className="w-48 h-48 rounded-full mx-auto md:mx-0 object-cover shadow-lg"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'block';
+                }}
               />
+              <div className="w-48 h-48 rounded-full mx-auto md:mx-0 bg-gray-200 flex items-center justify-center shadow-lg" style={{display: 'none'}}>
+                <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
             </div>
             <div className="md:col-span-2 text-center md:text-left">
               <h1 className="text-3xl font-bold text-medical-text mb-2">
@@ -63,27 +72,40 @@ const DoctorPage = () => {
               <div className="card">
                 <h2 className="text-2xl font-bold text-medical-text mb-6">Про лікаря</h2>
                 <div className="prose max-w-none">
-                  <p className="text-gray-600 leading-relaxed mb-6">
-                    {doctor.bio}
-                  </p>
+                  <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                    <p className="text-gray-600 leading-relaxed">
+                      {doctor.bio}
+                    </p>
+                  </div>
                   
                   <h3 className="text-xl font-semibold text-medical-text mb-4">Спеціалізація</h3>
-                  <ul className="list-disc list-inside text-gray-600 space-y-2 mb-6">
-                    <li>Діагностика та лікування захворювань</li>
-                    <li>Профілактичні огляди</li>
-                    <li>Консультації пацієнтів</li>
-                    <li>Ведення медичної документації</li>
-                  </ul>
-
-                  <h3 className="text-xl font-semibold text-medical-text mb-4">Освіта та кваліфікація</h3>
-                  <div className="bg-medical-light-blue p-4 rounded-lg">
-                    <ul className="text-gray-600 space-y-2">
-                      <li>• Вища медична освіта</li>
-                      <li>• Сертифікат спеціаліста</li>
-                      <li>• Постійне підвищення кваліфікації</li>
-                      <li>• Участь у медичних конференціях</li>
-                    </ul>
+                  <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                    <p className="text-gray-600">
+                      {doctor.specialization || doctor.specialty || 'Спеціалізація не вказана'}
+                    </p>
                   </div>
+
+                  {doctor.education && (
+                    <>
+                      <h3 className="text-xl font-semibold text-medical-text mb-4">Освіта та кваліфікація</h3>
+                      <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                        <p className="text-gray-600">
+                          {doctor.education}
+                        </p>
+                      </div>
+                    </>
+                  )}
+
+                  {doctor.experience && (
+                    <>
+                      <h3 className="text-xl font-semibold text-medical-text mb-4">Досвід роботи</h3>
+                      <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                        <p className="text-gray-600">
+                          {doctor.experience}
+                        </p>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

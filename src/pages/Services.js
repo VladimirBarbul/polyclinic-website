@@ -121,25 +121,23 @@ const Services = () => {
                   </ul>
                 </div>
                 <div className="mt-auto">
-                  <div className="mb-4">
+                  <div className="flex justify-between items-center mb-4">
                     <span className="text-medical-blue font-semibold text-xl">
                       {service.price}
                     </span>
-                  </div>
-                  <div className="flex flex-col gap-2">
                     <Link
                       to={`/service/${service.id}`}
-                      className="btn-secondary text-sm text-center py-2"
+                      className="btn-secondary text-sm py-2 px-4"
                     >
                       Докладніше
                     </Link>
-                    <button
-                      onClick={() => handleServiceClick(service)}
-                      className="btn-primary text-sm py-2"
-                    >
-                      Записатись на послугу
-                    </button>
                   </div>
+                  <button
+                    onClick={() => handleServiceClick(service)}
+                    className="btn-primary text-sm py-2 w-full"
+                  >
+                    Записатись на послугу
+                  </button>
                 </div>
               </div>
             ))}

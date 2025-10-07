@@ -106,50 +106,57 @@ const SocialChat = () => {
 
       {/* Chat Modal */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold text-medical-text">Зв'яжіться з нами</h3>
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsOpen(false);
+            }
+          }}
+        >
+          <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full max-h-[80vh] overflow-y-auto">
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-bold text-medical-text">Зв'яжіться з нами</h3>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="text-gray-500 hover:text-gray-700"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
               
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-4 text-sm">
                 Оберіть зручний для вас спосіб зв'язку:
               </p>
 
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {socialOptions.map((option) => (
                   <a
                     key={option.name}
                     href={option.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center p-4 rounded-lg border-2 border-gray-200 hover:border-medical-blue hover:bg-medical-light-blue transition-colors duration-200"
+                    className="flex items-center p-3 rounded-lg border border-gray-200 hover:border-medical-blue hover:bg-medical-light-blue transition-colors duration-200"
                   >
-                    <div className={`p-3 rounded-lg ${option.color} text-white mr-4`}>
+                    <div className={`p-2 rounded-lg ${option.color} text-white mr-3`}>
                       {option.icon}
                     </div>
-                    <div>
-                      <p className="font-medium text-medical-text">{option.name}</p>
-                      <p className="text-sm text-gray-600">Натисніть для переходу</p>
+                    <div className="flex-1">
+                      <p className="font-medium text-medical-text text-sm">{option.name}</p>
+                      <p className="text-xs text-gray-600">Натисніть для переходу</p>
                     </div>
-                    <svg className="w-5 h-5 text-gray-400 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </a>
                 ))}
               </div>
 
-              <div className="mt-6 pt-4 border-t border-gray-200">
-                <p className="text-sm text-gray-600 text-center">
+              <div className="mt-4 pt-3 border-t border-gray-200">
+                <p className="text-xs text-gray-600 text-center">
                   Або зателефонуйте нам: <a href={`tel:${socialSettings.phone}`} className="text-medical-blue font-medium">{socialSettings.phone}</a>
                 </p>
               </div>
