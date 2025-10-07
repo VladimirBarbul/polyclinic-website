@@ -26,7 +26,7 @@ import VacancyForm from './pages/admin/VacancyForm';
 import EmailJSAdmin from './pages/admin/EmailJSAdmin';
 import SocialAdmin from './pages/admin/SocialAdmin';
 
-// Fix for Render.com SPA routing
+// Fix for Render.com SPA routing (only for Render.com)
 if (window.location.hostname.includes('onrender.com')) {
   // Ensure proper routing for Render.com
   const path = window.location.pathname;
@@ -43,6 +43,10 @@ function App() {
   // Use HashRouter for Render.com, BrowserRouter for others
   const isRender = window.location.hostname.includes('onrender.com');
   const RouterComponent = isRender ? HashRouter : Router;
+  
+  console.log('App: hostname =', window.location.hostname);
+  console.log('App: isRender =', isRender);
+  console.log('App: RouterComponent =', RouterComponent.name);
 
   return (
     <RouterComponent>

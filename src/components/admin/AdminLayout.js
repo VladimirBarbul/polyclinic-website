@@ -8,10 +8,14 @@ const AdminLayout = ({ children }) => {
   useEffect(() => {
     // Проверяем аутентификацию
     const isAuthenticated = localStorage.getItem('adminAuth') === 'true';
-    if (!isAuthenticated) {
+    console.log('AdminLayout: isAuthenticated =', isAuthenticated);
+    console.log('AdminLayout: current path =', location.pathname);
+    
+    if (!isAuthenticated && location.pathname !== '/admin/login') {
+      console.log('AdminLayout: redirecting to login');
       navigate('/admin/login');
     }
-  }, [navigate]);
+  }, [navigate, location.pathname]);
 
   const isActive = (path) => {
     return location.pathname === path;
