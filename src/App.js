@@ -25,6 +25,7 @@ import VacanciesAdmin from './pages/admin/VacanciesAdmin';
 import VacancyForm from './pages/admin/VacancyForm';
 import EmailJSAdmin from './pages/admin/EmailJSAdmin';
 import SocialAdmin from './pages/admin/SocialAdmin';
+import DebugRoute from './components/DebugRoute';
 
 // Fix for Render.com SPA routing (only for Render.com)
 if (window.location.hostname.includes('onrender.com')) {
@@ -47,6 +48,7 @@ function App() {
   console.log('App: hostname =', window.location.hostname);
   console.log('App: isRender =', isRender);
   console.log('App: RouterComponent =', RouterComponent.name);
+  console.log('App: current path =', window.location.pathname);
 
   return (
     <RouterComponent>
@@ -63,7 +65,7 @@ function App() {
             <Route path="/vacancies" element={<Vacancies />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin/login" element={<Login />} />
-            <Route path="/admin" element={<AdminLayout><Dashboard /></AdminLayout>} />
+            <Route path="/admin" element={<DebugRoute path="/admin"><AdminLayout><Dashboard /></AdminLayout></DebugRoute>} />
             <Route path="/admin/contacts" element={<AdminLayout><ContactsAdmin /></AdminLayout>} />
             <Route path="/admin/doctors" element={<AdminLayout><DoctorsAdmin /></AdminLayout>} />
             <Route path="/admin/doctors/new" element={<AdminLayout><DoctorForm /></AdminLayout>} />
