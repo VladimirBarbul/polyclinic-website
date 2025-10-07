@@ -13,6 +13,11 @@ const Services = () => {
     setShowModal(true);
   };
 
+  const handleConsultationClick = () => {
+    setSelectedService({ title: 'Консультація з послугами' });
+    setShowModal(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -32,7 +37,7 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service) => (
-              <div key={service.id} className="card">
+              <div key={service.id} className="card flex flex-col h-full">
                 <img
                   src={service.image}
                   alt={service.title}
@@ -44,7 +49,7 @@ const Services = () => {
                 <p className="text-gray-600 mb-4">
                   {service.description}
                 </p>
-                <div className="space-y-2 mb-6">
+                <div className="space-y-2 mb-6 flex-grow">
                   <h4 className="font-semibold text-medical-text">Що включає:</h4>
                   <ul className="text-sm text-gray-600 space-y-1">
                     {service.features.map((feature, index) => (
@@ -52,7 +57,7 @@ const Services = () => {
                     ))}
                   </ul>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center mt-auto">
                   <span className="text-medical-blue font-semibold text-lg">
                     {service.price}
                   </span>
@@ -79,12 +84,12 @@ const Services = () => {
             Наші спеціалісти допоможуть вам обрати найкращі послуги
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="tel:+380441234567"
+            <button
+              onClick={handleConsultationClick}
               className="btn-primary"
             >
               Записатися на консультацію
-            </a>
+            </button>
             <Link
               to="/contact"
               className="btn-secondary"
