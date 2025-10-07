@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import AppointmentOptions from './AppointmentOptions';
+import { useContacts } from '../hooks/useContacts';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const contacts = useContacts();
 
   const navigation = [
     { name: 'Головна', href: '/' },
@@ -26,7 +28,7 @@ const Header = () => {
               </svg>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-medical-text">Health Clinic</h1>
+              <h1 className="text-xl font-bold text-medical-text">{contacts.name}</h1>
               <p className="text-sm text-gray-600">Медична клініка</p>
             </div>
           </Link>

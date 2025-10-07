@@ -1,8 +1,17 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const AdminLayout = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Проверяем аутентификацию
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true';
+    if (!isAuthenticated) {
+      navigate('/admin/login');
+    }
+  }, [navigate]);
 
   const isActive = (path) => {
     return location.pathname === path;

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { services } from '../data/mockData';
+import { useServices } from '../hooks/useServices';
 import ServiceBookingModal from '../components/ServiceBookingModal';
 
 const Services = () => {
+  const services = useServices();
   const [showModal, setShowModal] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
 

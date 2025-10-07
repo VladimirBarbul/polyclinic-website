@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { doctors } from '../data/mockData';
+import { useDoctors } from '../hooks/useDoctors';
 
 const Doctors = () => {
+  const doctors = useDoctors();
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}

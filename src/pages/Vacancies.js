@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { vacancies } from '../data/mockData';
+import { useVacancies } from '../hooks/useVacancies';
 
 const Vacancies = () => {
+  const vacancies = useVacancies();
   const [selectedVacancy, setSelectedVacancy] = useState(null);
   const [formData, setFormData] = useState({
     name: '',

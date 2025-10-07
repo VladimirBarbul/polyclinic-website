@@ -1,7 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const SocialChat = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [socialSettings, setSocialSettings] = useState({
+    telegram: 'https://t.me/polyclinic',
+    whatsapp: 'https://wa.me/380636718588',
+    viber: 'viber://chat?number=380636718588',
+    facebook: 'https://m.me/polyclinic',
+    instagram: 'https://www.instagram.com/healthclinic.od/',
+    phone: '+380636718588'
+  });
+
+  useEffect(() => {
+    // Load settings from localStorage
+    const loadSettings = () => {
+      try {
+        const savedSettings = localStorage.getItem('socialSettings');
+        if (savedSettings) {
+          setSocialSettings(JSON.parse(savedSettings));
+        }
+      } catch (e) {
+        console.error("Failed to load social settings from localStorage", e);
+      }
+    };
+
+    loadSettings();
+
+    // Listen for settings updates
+    const handleSettingsUpdate = () => {
+      loadSettings();
+    };
+
+    window.addEventListener('dataUpdated_socialSettings', handleSettingsUpdate);
+
+    return () => {
+      window.removeEventListener('dataUpdated_socialSettings', handleSettingsUpdate);
+    };
+  }, []);
 
   const socialOptions = [
     {
@@ -12,7 +47,7 @@ const SocialChat = () => {
         </svg>
       ),
       color: 'bg-blue-500',
-      href: 'https://t.me/polyclinic'
+      href: socialSettings.telegram
     },
     {
       name: 'WhatsApp',
@@ -22,7 +57,7 @@ const SocialChat = () => {
         </svg>
       ),
       color: 'bg-green-500',
-      href: 'https://wa.me/380441234567'
+      href: socialSettings.whatsapp
     },
     {
       name: 'Viber',
@@ -32,7 +67,7 @@ const SocialChat = () => {
         </svg>
       ),
       color: 'bg-purple-500',
-      href: 'viber://chat?number=380441234567'
+      href: socialSettings.viber
     },
     {
       name: 'Facebook Messenger',
@@ -42,7 +77,17 @@ const SocialChat = () => {
         </svg>
       ),
       color: 'bg-blue-600',
-      href: 'https://m.me/polyclinic'
+      href: socialSettings.facebook
+    },
+    {
+      name: 'Instagram',
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.647.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.807.875 1.297 2.026 1.297 3.323s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297zm7.83-9.405c-.49 0-.98-.49-.98-.98s.49-.98.98-.98.98.49.98.98-.49.98-.98.98z"/>
+        </svg>
+      ),
+      color: 'bg-pink-500',
+      href: socialSettings.instagram
     }
   ];
 
@@ -105,7 +150,7 @@ const SocialChat = () => {
 
               <div className="mt-6 pt-4 border-t border-gray-200">
                 <p className="text-sm text-gray-600 text-center">
-                  Або зателефонуйте нам: <a href="tel:+380441234567" className="text-medical-blue font-medium">+380 44 123 45 67</a>
+                  Або зателефонуйте нам: <a href={`tel:${socialSettings.phone}`} className="text-medical-blue font-medium">{socialSettings.phone}</a>
                 </p>
               </div>
             </div>

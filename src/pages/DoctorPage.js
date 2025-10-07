@@ -1,10 +1,11 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { doctors } from '../data/mockData';
+import { useDoctors } from '../hooks/useDoctors';
 import AppointmentOptions from '../components/AppointmentOptions';
 
 const DoctorPage = () => {
   const { id } = useParams();
+  const doctors = useDoctors();
   const doctor = doctors.find(d => d.id === parseInt(id));
 
   if (!doctor) {

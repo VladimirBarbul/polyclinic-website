@@ -1,12 +1,10 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useContacts } from '../hooks/useContacts';
-import ContactFormModal from './ContactFormModal';
 
 const Footer = memo(() => {
   const currentYear = new Date().getFullYear();
   const contacts = useContacts();
-  const [showModal, setShowModal] = useState(false);
   
   // Проверяем, что контакты загружены
   if (!contacts) {
@@ -129,25 +127,11 @@ const Footer = memo(() => {
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
-          <button
-            onClick={() => setShowModal(true)}
-            className="bg-medical-blue text-white px-3 py-2 sm:px-6 sm:py-3 rounded-md hover:bg-medical-blue-dark transition duration-300 ease-in-out text-xs sm:text-lg font-semibold mb-4 whitespace-nowrap"
-          >
-            <span className="hidden xl:inline">Записатися на прийом</span>
-            <span className="hidden lg:inline xl:hidden">Записатися</span>
-            <span className="hidden sm:inline lg:hidden">Записатися</span>
-            <span className="sm:hidden">Записатися</span>
-          </button>
           <p className="text-gray-300 text-sm">
             © {currentYear} {contacts.name}. Всі права захищені.
           </p>
         </div>
       </div>
-
-      <ContactFormModal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-      />
     </footer>
   );
 });

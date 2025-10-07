@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { doctors, services } from '../data/mockData';
+import { useDoctors } from '../hooks/useDoctors';
+import { useServices } from '../hooks/useServices';
 import { useContacts } from '../hooks/useContacts';
 import AppointmentOptions from '../components/AppointmentOptions';
 
 const Home = () => {
   const contacts = useContacts();
+  const doctors = useDoctors();
+  const services = useServices();
 
   // Проверяем загрузку контактов
   if (!contacts) {

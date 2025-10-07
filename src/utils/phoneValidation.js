@@ -50,3 +50,4 @@ export const formatUkrainianPhone = (phone) => {
 export const getPhoneErrorMessage = () => {
   return 'Введіть коректний український номер телефону (наприклад: +380501234567, 0501234567)';
 };
+

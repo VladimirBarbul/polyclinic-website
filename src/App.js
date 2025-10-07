@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { initializeData } from './utils/initializeData';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -23,8 +24,13 @@ import ServiceForm from './pages/admin/ServiceForm';
 import VacanciesAdmin from './pages/admin/VacanciesAdmin';
 import VacancyForm from './pages/admin/VacancyForm';
 import EmailJSAdmin from './pages/admin/EmailJSAdmin';
+import SocialAdmin from './pages/admin/SocialAdmin';
 
 function App() {
+  useEffect(() => {
+    initializeData();
+  }, []);
+
   return (
     <Router>
       <ScrollToTop />
@@ -52,6 +58,7 @@ function App() {
             <Route path="/admin/vacancies/new" element={<AdminLayout><VacancyForm /></AdminLayout>} />
             <Route path="/admin/vacancies/:id" element={<AdminLayout><VacancyForm /></AdminLayout>} />
             <Route path="/admin/emailjs" element={<AdminLayout><EmailJSAdmin /></AdminLayout>} />
+            <Route path="/admin/social" element={<AdminLayout><SocialAdmin /></AdminLayout>} />
           </Routes>
         </main>
         <Footer />

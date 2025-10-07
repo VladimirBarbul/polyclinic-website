@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { services } from '../data/mockData';
+import { useServices } from '../hooks/useServices';
 import ServiceBookingModal from '../components/ServiceBookingModal';
 
 const ServicePage = () => {
   const { id } = useParams();
+  const services = useServices();
   const service = services.find(s => s.id === parseInt(id));
   const [showModal, setShowModal] = useState(false);
 
