@@ -40,9 +40,28 @@ export const setData = (key, data) => {
 };
 
 export const addItem = (key, item) => {
-  const existingData = getData(key) || [];
-  const newData = [...existingData, { ...item, id: Date.now() }];
-  return setData(key, newData);
+  try {
+    const existingData = getData(key) || [];
+    
+    // Проверяем, что existingData является массивом
+    if (!Array.isArray(existingData)) {
+      console.warn(`Данные для ключа ${key} не являются массивом, создаем новый массив`);
+      const newData = [{ ...item, id: Date.now() }];
+      return setData(key, newData);
+    }
+    
+    // Проверяем, что item валиден
+    if (!item || typeof item !== 'object') {
+      console.error('Невалидный элемент для добавления:', item);
+      return false;
+    }
+    
+    const newData = [...existingData, { ...item, id: Date.now() }];
+    return setData(key, newData);
+  } catch (error) {
+    console.error(`Ошибка добавления элемента для ключа ${key}:`, error);
+    return false;
+  }
 };
 
 export const updateItem = (key, id, updatedItem) => {

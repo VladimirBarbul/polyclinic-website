@@ -12,9 +12,21 @@ const ServicesAdmin = () => {
   }, []);
 
   const loadServices = () => {
-    const servicesData = getData('services') || [];
-    setServices(servicesData);
-    setLoading(false);
+    try {
+      const servicesData = getData('services') || [];
+      // Проверяем, что данные валидны
+      if (Array.isArray(servicesData)) {
+        setServices(servicesData);
+      } else {
+        console.warn('Данные услуг не являются массивом:', servicesData);
+        setServices([]);
+      }
+    } catch (error) {
+      console.error('Ошибка загрузки услуг:', error);
+      setServices([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = (id) => {
@@ -54,6 +66,19 @@ const ServicesAdmin = () => {
           </svg>
           <h3 className="mt-2 text-sm font-medium text-gray-900">Немає послуг</h3>
           <p className="mt-1 text-sm text-gray-500">Почніть з додавання нової послуги.</p>
+          <div className="mt-4">
+            <button
+              onClick={() => {
+                // Восстанавливаем данные из mockData
+                const { services: defaultServices } = require('../../data/mockData');
+                localStorage.setItem('services', JSON.stringify(defaultServices));
+                loadServices();
+              }}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200"
+            >
+              Відновити дані з прикладу
+            </button>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -64,20 +89,20 @@ const ServicesAdmin = () => {
                   <div className="flex-shrink-0">
                     <img
                       className="h-12 w-12 rounded-lg object-cover"
-                      src={service.photo || '/api/placeholder/48/48'}
-                      alt={service.name}
+                      src={service.image || service.photo || '/api/placeholder/48/48'}
+                      alt={service.title || service.name || 'Послуга'}
                     />
                   </div>
                   <div className="ml-5 w-0 flex-1">
                     <dl>
                       <dt className="text-sm font-medium text-gray-500 truncate">
-                        {service.category}
+                        {service.category || 'Послуга'}
                       </dt>
                       <dd className="text-lg font-medium text-gray-900">
-                        {service.name}
+                        {service.title || service.name || 'Без назви'}
                       </dd>
                       <dd className="text-sm text-gray-500">
-                        {service.cost}
+                        {service.price || service.cost || 'Ціна не вказана'}
                       </dd>
                     </dl>
                   </div>

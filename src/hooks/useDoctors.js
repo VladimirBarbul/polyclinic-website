@@ -3,6 +3,19 @@ import { doctors as defaultDoctors } from '../data/mockData';
 
 export const useDoctors = () => {
   const [doctors, setDoctors] = useState(() => {
+    // Сначала пытаемся загрузить из localStorage
+    const storedDoctors = localStorage.getItem('doctors');
+    if (storedDoctors) {
+      try {
+        const parsedDoctors = JSON.parse(storedDoctors);
+        if (Array.isArray(parsedDoctors) && parsedDoctors.length > 0) {
+          return parsedDoctors;
+        }
+      } catch (error) {
+        console.error('Ошибка парсинга врачей при инициализации:', error);
+      }
+    }
+    // Если нет данных в localStorage, используем данные по умолчанию
     return defaultDoctors;
   });
 
@@ -45,7 +58,7 @@ export const useDoctors = () => {
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('dataUpdated_doctors', handleDataUpdate);
     };
-  }, [loadDoctors]);
+  }, []); // Убираем loadDoctors из зависимостей
 
   return doctors;
 };

@@ -3,6 +3,19 @@ import { vacancies as defaultVacancies } from '../data/mockData';
 
 export const useVacancies = () => {
   const [vacancies, setVacancies] = useState(() => {
+    // Сначала пытаемся загрузить из localStorage
+    const storedVacancies = localStorage.getItem('vacancies');
+    if (storedVacancies) {
+      try {
+        const parsedVacancies = JSON.parse(storedVacancies);
+        if (Array.isArray(parsedVacancies) && parsedVacancies.length > 0) {
+          return parsedVacancies;
+        }
+      } catch (error) {
+        console.error('Ошибка парсинга вакансий при инициализации:', error);
+      }
+    }
+    // Если нет данных в localStorage, используем данные по умолчанию
     return defaultVacancies;
   });
 
@@ -45,7 +58,7 @@ export const useVacancies = () => {
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('dataUpdated_vacancies', handleDataUpdate);
     };
-  }, [loadVacancies]);
+  }, []); // Убираем loadVacancies из зависимостей
 
   return vacancies;
 };

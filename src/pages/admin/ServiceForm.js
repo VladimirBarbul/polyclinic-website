@@ -9,15 +9,29 @@ const ServiceForm = () => {
   const isEdit = Boolean(id);
 
   const [formData, setFormData] = useState({
-    name: '',
+    title: '',
     description: '',
     category: '',
-    cost: '',
+    price: '',
     duration: '',
-    photo: '',
+    image: '',
     procedure: '',
     preparation: '',
-    time: ''
+    time: '',
+    features: [
+      'Первинний огляд лікаря',
+      'Діагностика захворювань',
+      'Лікування та терапія',
+      'Профілактичні рекомендації'
+    ],
+    benefits: [
+      'Сучасне медичне обладнання',
+      'Досвідчені лікарі',
+      'Індивідуальний підхід',
+      'Швидка діагностика',
+      'Комфортні умови',
+      'Доступні ціни'
+    ]
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -26,7 +40,32 @@ const ServiceForm = () => {
     if (isEdit) {
       const service = getItemById('services', parseInt(id));
       if (service) {
-        setFormData(service);
+        // Маппим поля для совместимости
+        setFormData({
+          title: service.title || service.name || '',
+          description: service.description || '',
+          category: service.category || '',
+          price: service.price || service.cost || '',
+          duration: service.duration || '',
+          image: service.image || service.photo || '',
+          procedure: service.procedure || '',
+          preparation: service.preparation || '',
+          time: service.time || '',
+          features: service.features || [
+            'Первинний огляд лікаря',
+            'Діагностика захворювань',
+            'Лікування та терапія',
+            'Профілактичні рекомендації'
+          ],
+          benefits: service.benefits || [
+            'Сучасне медичне обладнання',
+            'Досвідчені лікарі',
+            'Індивідуальний підхід',
+            'Швидка діагностика',
+            'Комфортні умови',
+            'Доступні ціни'
+          ]
+        });
       }
     }
   }, [id, isEdit]);
@@ -42,7 +81,7 @@ const ServiceForm = () => {
   const handleImageSelect = (imageData) => {
     setFormData(prev => ({
       ...prev,
-      photo: imageData
+      image: imageData
     }));
   };
 
@@ -112,14 +151,14 @@ const ServiceForm = () => {
           
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
                 Назва послуги <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
-                name="name"
-                id="name"
-                value={formData.name}
+                name="title"
+                id="title"
+                value={formData.title}
                 onChange={handleChange}
                 placeholder="Наприклад: Консультація терапевта"
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
@@ -152,14 +191,14 @@ const ServiceForm = () => {
             </div>
 
             <div>
-              <label htmlFor="cost" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-2">
                 Вартість
               </label>
               <input
                 type="text"
-                name="cost"
-                id="cost"
-                value={formData.cost}
+                name="price"
+                id="price"
+                value={formData.price}
                 onChange={handleChange}
                 placeholder="Наприклад: від 500 грн, 1000-1500 грн"
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
@@ -202,9 +241,28 @@ const ServiceForm = () => {
           </div>
 
           <div className="mt-6">
+            <label htmlFor="features" className="block text-sm font-medium text-gray-700 mb-2">
+              Що включає послуга
+            </label>
+            <textarea
+              name="features"
+              id="features"
+              rows={4}
+              value={formData.features.join('\n')}
+              onChange={(e) => {
+                const features = e.target.value.split('\n').filter(item => item.trim() !== '');
+                setFormData(prev => ({ ...prev, features }));
+              }}
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+              placeholder="Кожен пункт з нового рядка:&#10;• Первинний огляд терапевта&#10;• Діагностика захворювань&#10;• Лікування хронічних хвороб&#10;• Профілактичні огляди"
+            />
+            <p className="mt-1 text-xs text-gray-500">Кожен пункт з нового рядка. Буде відображено як список</p>
+          </div>
+
+          <div className="mt-6">
             <ImageUpload
               onImageSelect={handleImageSelect}
-              currentImage={formData.photo}
+              currentImage={formData.image || formData.photo}
               label="Фото послуги"
             />
           </div>
@@ -257,6 +315,25 @@ const ServiceForm = () => {
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 placeholder="наприклад: будь-який час роботи клініки"
               />
+            </div>
+
+            <div>
+              <label htmlFor="benefits" className="block text-sm font-medium text-gray-700">
+                Переваги послуги
+              </label>
+              <textarea
+                name="benefits"
+                id="benefits"
+                rows={4}
+                value={formData.benefits.join('\n')}
+                onChange={(e) => {
+                  const benefits = e.target.value.split('\n').filter(item => item.trim() !== '');
+                  setFormData(prev => ({ ...prev, benefits }));
+                }}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2"
+                placeholder="Кожен пункт з нового рядка:&#10;• Сучасне обладнання&#10;• Досвідчені лікарі&#10;• Швидка діагностика&#10;• Індивідуальний підхід"
+              />
+              <p className="mt-1 text-xs text-gray-500">Кожен пункт з нового рядка. Буде відображено як список переваг</p>
             </div>
           </div>
         </div>

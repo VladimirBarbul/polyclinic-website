@@ -174,18 +174,46 @@ const Dashboard = () => {
       <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
         <h3 className="text-lg font-semibold text-yellow-800 mb-2">Обновление данных</h3>
         <p className="text-yellow-700 mb-4">
-          Если название клиники отображается некорректно, нажмите кнопку ниже для обновления данных.
+          Если название клиники отображается некорректно или есть ошибки с данными, используйте кнопки ниже.
         </p>
-        <button
-          onClick={() => {
-            updateClinicContacts();
-            alert('Данные обновлены! Страница будет перезагружена.');
-            window.location.reload();
-          }}
-          className="bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition-colors"
-        >
-          Обновить данные клиники
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={() => {
+              updateClinicContacts();
+              alert('Данные обновлены! Страница будет перезагружена.');
+              window.location.reload();
+            }}
+            className="bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition-colors"
+          >
+            Обновить данные клиники
+          </button>
+          <button
+            onClick={() => {
+              // Очищаем все данные и перезагружаем
+              localStorage.clear();
+              alert('Все данные очищены! Страница будет перезагружена.');
+              window.location.reload();
+            }}
+            className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
+          >
+            Очистить все данные
+          </button>
+          <button
+            onClick={() => {
+              // Принудительно инициализируем данные
+              const { doctors, services, vacancies, clinicInfo } = require('../../data/mockData');
+              localStorage.setItem('doctors', JSON.stringify(doctors));
+              localStorage.setItem('services', JSON.stringify(services));
+              localStorage.setItem('vacancies', JSON.stringify(vacancies));
+              localStorage.setItem('clinicContacts', JSON.stringify([clinicInfo]));
+              alert('Данные восстановлены! Страница будет перезагружена.');
+              window.location.reload();
+            }}
+            className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+          >
+            Восстановить данные
+          </button>
+        </div>
       </div>
     </div>
   );
