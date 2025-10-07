@@ -1,6 +1,15 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, HashRouter, Routes, Route } from 'react-router-dom';
 import { initializeData } from './utils/initializeData';
+
+// Fix for Render.com SPA routing
+if (window.location.hostname.includes('onrender.com')) {
+  // Ensure proper routing for Render.com
+  const path = window.location.pathname;
+  if (path !== '/' && !path.startsWith('/static/') && !path.includes('.')) {
+    window.history.replaceState({}, '', '/');
+  }
+}
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -31,8 +40,12 @@ function App() {
     initializeData();
   }, []);
 
+  // Use HashRouter for Render.com, BrowserRouter for others
+  const isRender = window.location.hostname.includes('onrender.com');
+  const RouterComponent = isRender ? HashRouter : Router;
+
   return (
-    <Router>
+    <RouterComponent>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col">
         <Header />
