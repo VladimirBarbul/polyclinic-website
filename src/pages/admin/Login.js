@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authenticate } from '../../utils/auth';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -12,8 +13,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (credentials.email === 'admin@clinic.com' && credentials.password === 'admin123') {
-      localStorage.setItem('adminAuth', 'true');
+    if (authenticate(credentials.email, credentials.password)) {
       navigate('/admin');
     } else {
       setError('Невірні облікові дані');

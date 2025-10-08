@@ -1,17 +1,25 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { isAuthenticated, logout, validateAuthIntegrity } from '../../utils/auth';
 
 const AdminLayout = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Проверяем целостность аутентификации
+    if (!validateAuthIntegrity()) {
+      console.log('AdminLayout: Auth integrity check failed');
+      navigate('/admin/login');
+      return;
+    }
+    
     // Проверяем аутентификацию
-    const isAuthenticated = localStorage.getItem('adminAuth') === 'true';
-    console.log('AdminLayout: isAuthenticated =', isAuthenticated);
+    const authStatus = isAuthenticated();
+    console.log('AdminLayout: isAuthenticated =', authStatus);
     console.log('AdminLayout: current path =', location.pathname);
     
-    if (!isAuthenticated && location.pathname !== '/admin/login') {
+    if (!authStatus && location.pathname !== '/admin/login') {
       console.log('AdminLayout: redirecting to login');
       navigate('/admin/login');
     }
@@ -85,13 +93,22 @@ const AdminLayout = ({ children }) => {
                 </Link>
               </div>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center space-x-4">
               <Link
                 to="/"
                 className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Повернутися на сайт
               </Link>
+              <button
+                onClick={() => {
+                  logout();
+                  navigate('/admin/login');
+                }}
+                className="bg-red-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-red-700 transition-colors"
+              >
+                Вийти
+              </button>
             </div>
           </div>
         </div>
